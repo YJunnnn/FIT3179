@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": "Internet Use in Australia (2017 - 2025)",
+
+  "width": 450,
+  "height": 300,
+  
+  "data": {
+    "url": "data/internet_usage_trend.csv",
+    "format": {"type": "csv"}
+  },
+
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 65
+    },
+    "strokeWidth":3,
+    "color": "#3176A8"
+  },
+
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis":{
+        "labelAngle": 0,
+        "labelOverlap": true,
+        "labelFontSize": 11,
+        "labelPadding": 8
+      }
+    },
+
+    "y": {
+      "field": "usage",
+      "type": "quantitative",
+      "title": "Internet users (%)",
+      "scale":{
+        "domain": [85,100],
+        "zero": false
+      }
+    },
+
+    "tooltip":[
+      {
+        "field": "year",
+        "title": "Year"
+      },
+      {
+        "field": "usage",
+        "title": "Internet use"
+      }
+    ]
+  },
+
+  "config":{
+    "view":{"stroke": null},
+    "axis":{
+      "gridColor": "#E5E5E5",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
+}

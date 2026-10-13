@@ -1,0 +1,81 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 500,
+  "height": 370,
+  "title": {
+    "text": "Internet Access Across Australia (2020)",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "data/australia_states.json",
+    "format": {
+      "type": "topojson",
+      "feature": "STE_2021_AUST_GDA2020"
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum.properties.STE_NAME21 !== 'Outside Australia'"
+    },
+    {
+      "calculate": "datum.properties.STE_NAME21 === 'New South Wales' ? 'NSW' : datum.properties.STE_NAME21 === 'Victoria' ? 'VIC' : datum.properties.STE_NAME21 === 'Queensland' ? 'QLD' : datum.properties.STE_NAME21 === 'South Australia' ? 'SA' : datum.properties.STE_NAME21 === 'Western Australia' ? 'WA' : datum.properties.STE_NAME21 === 'Tasmania' ? 'TAS' : datum.properties.STE_NAME21 === 'Australian Capital Territory' ? 'ACT' : datum.properties.STE_NAME21 === 'Northern Territory' ? 'NT' : ''",
+      "as": "state_code"
+    },
+    {
+      "lookup": "state_code",
+      "from": {
+        "data": {
+          "url": "data/internet_access_states_2020.csv"
+        },
+        "key": "state",
+        "fields": ["access"]
+      }
+    },
+    {
+      "calculate": "datum.properties.STE_NAME21",
+      "as": "state_name"
+    }
+  ],
+  "projection": {
+    "type": "mercator"
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "#ffffff",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "color": {
+      "field": "access",
+      "type": "quantitative",
+      "title": "Internet Access Index",
+      "scale": {
+        "domain": [75, 95],
+        "scheme": "blues"
+      },
+      "legend": {
+        "orient": "bottom",
+        "gradientLength": 220
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state_name",
+        "type": "nominal",
+        "title": "State / Territory"
+      },
+      {
+        "field": "access",
+        "type": "quantitative",
+        "title": "Access Index",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

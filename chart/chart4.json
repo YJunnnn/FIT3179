@@ -1,0 +1,131 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 500,
+  "height": 370,
+  "title": {
+    "text": "Capital City–Rural Digital Inclusion Gap (2020)",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia_states.json",
+        "format": {
+          "type": "topojson",
+          "feature": "STE_2021_AUST_GDA2020"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.properties.STE_NAME21 !== 'Outside Australia'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#E8EEF2",
+        "stroke": "#B9C6D0",
+        "strokeWidth": 0.8
+      }
+    },
+    {
+      "data": {
+        "url": "data/digital_inclusion_gap_2020.csv"
+      },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "values": [
+                {"state": "NSW", "longitude": 147.0, "latitude": -32.5},
+                {"state": "VIC", "longitude": 144.5, "latitude": -37.0},
+                {"state": "QLD", "longitude": 145.0, "latitude": -22.5},
+                {"state": "SA", "longitude": 135.5, "latitude": -30.0},
+                {"state": "WA", "longitude": 121.0, "latitude": -26.0},
+                {"state": "TAS", "longitude": 146.5, "latitude": -42.0}
+              ]
+            },
+            "key": "state",
+            "fields": ["longitude", "latitude"]
+          }
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.9,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "gap",
+          "type": "quantitative",
+          "title": "Urban–rural gap (points)",
+          "scale": {
+            "domain": [0, 10],
+            "range": [0, 1800]
+          },
+          "legend": {
+            "orient": "bottom",
+            "values": [2, 4, 6, 8, 10]
+          }
+        },
+        "color": {
+          "field": "gap",
+          "type": "quantitative",
+          "title": "Urban–rural gap (points)",
+          "scale": {
+            "domain": [5, 9],
+            "range": ["#BBD7EB", "#175A91"]
+          },
+          "legend": {
+            "orient": "bottom",
+            "gradientLength": 200
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "capital",
+            "type": "quantitative",
+            "title": "Capital City Index",
+            "format": ".1f"
+          },
+          {
+            "field": "rural",
+            "type": "quantitative",
+            "title": "Rural Index",
+            "format": ".1f"
+          },
+          {
+            "field": "gap",
+            "type": "quantitative",
+            "title": "Gap (points)",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

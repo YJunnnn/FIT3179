@@ -1,0 +1,134 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 450,
+  "height": 300,
+  "title": {
+    "text": "Internet Access vs Digital Ability by Income (2020)",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "data/income_access_ability_2020.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.access - datum.ability",
+      "as": "gap"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "income",
+      "type": "ordinal",
+      "title": "Income Quintile",
+      "sort": ["Q1", "Q2", "Q3", "Q4", "Q5"],
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 12
+      }
+    },
+    "x": {
+      "type": "quantitative",
+      "scale": {
+        "domain": [0, 100]
+      },
+      "axis": {
+        "title": "Index Score (0–100)",
+        "titleFontSize": 12
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "#A8B4BF",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "ability",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "access"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 130,
+        "color": "#E28C45"
+      },
+      "encoding": {
+        "x": {
+          "field": "ability",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "income",
+            "title": "Income Quintile"
+          },
+          {
+            "field": "ability",
+            "title": "Digital Ability Index",
+            "format": ".1f"
+          },
+          {
+            "field": "access",
+            "title": "Internet Access Index",
+            "format": ".1f"
+          },
+          {
+            "field": "gap",
+            "title": "Difference (index points)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 130,
+        "color": "#3176A8"
+      },
+      "encoding": {
+        "x": {
+          "field": "access",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "income",
+            "title": "Income Quintile"
+          },
+          {
+            "field": "ability",
+            "title": "Digital Ability Index",
+            "format": ".1f"
+          },
+          {
+            "field": "access",
+            "title": "Internet Access Index",
+            "format": ".1f"
+          },
+          {
+            "field": "gap",
+            "title": "Difference (index points)",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

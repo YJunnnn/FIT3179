@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 450,
+  "height": 300,
+  "title": {
+    "text": "Online Activities Across Age Groups (2025)",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "data/online_activities_age_2025.csv"
+  },
+  "mark": {
+    "type": "bar"
+  },
+  "encoding": {
+    "x": {
+      "field": "age",
+      "type": "nominal",
+      "title": "Age Group",
+      "sort": [
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65-74",
+        "75+"
+      ],
+      "axis": {
+        "labelAngle": -25,
+        "labelFontSize": 11
+      }
+    },
+    "xOffset": {
+      "field": "activity",
+      "sort": [
+        "Online shopping",
+        "Video calling",
+        "Online studying"
+      ]
+    },
+    "y": {
+      "field": "percentage",
+      "type": "quantitative",
+      "title": "Percentage of respondents (%)",
+      "scale": {
+        "domain": [0, 100]
+      }
+    },
+    "color": {
+      "field": "activity",
+      "type": "nominal",
+      "title": "Online Activity",
+      "scale": {
+        "domain": [
+          "Online shopping",
+          "Video calling",
+          "Online studying"
+        ],
+        "range": [
+          "#3176A8",
+          "#E28C45",
+          "#78A68A"
+        ]
+      },
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal",
+        "title": null
+      }
+    },
+    "tooltip": [
+      {
+        "field": "age",
+        "type": "nominal",
+        "title": "Age Group"
+      },
+      {
+        "field": "activity",
+        "type": "nominal",
+        "title": "Activity"
+      },
+      {
+        "field": "percentage",
+        "type": "quantitative",
+        "title": "Percentage",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

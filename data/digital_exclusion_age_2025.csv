@@ -1,0 +1,25 @@
+age,category,percentage
+18-34,Highly excluded,1.8
+18-34,Excluded,3.8
+18-34,Included,34.0
+18-34,Highly included,60.4
+35-44,Highly excluded,2.9
+35-44,Excluded,5.2
+35-44,Included,33.2
+35-44,Highly included,58.7
+45-54,Highly excluded,6.1
+45-54,Excluded,11.0
+45-54,Included,34.2
+45-54,Highly included,48.7
+55-64,Highly excluded,9.1
+55-64,Excluded,13.1
+55-64,Included,49.9
+55-64,Highly included,27.9
+65-74,Highly excluded,15.9
+65-74,Excluded,27.0
+65-74,Included,44.3
+65-74,Highly included,12.9
+75+,Highly excluded,41.4
+75+,Excluded,25.1
+75+,Included,31.1
+75+,Highly included,2.4

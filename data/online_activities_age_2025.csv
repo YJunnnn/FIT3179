@@ -1,0 +1,22 @@
+age,activity,percentage
+18-24,Online shopping,90.4
+18-24,Video calling,79.6
+18-24,Online studying,66.7
+25-34,Online shopping,92.7
+25-34,Video calling,64.9
+25-34,Online studying,36.3
+35-44,Online shopping,91.2
+35-44,Video calling,71.1
+35-44,Online studying,36.4
+45-54,Online shopping,88.0
+45-54,Video calling,64.6
+45-54,Online studying,27.6
+55-64,Online shopping,85.0
+55-64,Video calling,49.9
+55-64,Online studying,16.5
+65-74,Online shopping,80.7
+65-74,Video calling,34.5
+65-74,Online studying,10.5
+75+,Online shopping,70.5
+75+,Video calling,21.9
+75+,Online studying,7.8

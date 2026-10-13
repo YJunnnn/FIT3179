@@ -1,0 +1,116 @@
+/*grey backrgound*/
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #d3d3d3;
+    font-family: Arial, sans-serif;
+    color: #222;
+}
+
+/* White webpage container */
+main {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px;
+    box-sizing: border-box;
+    background-color: white;
+    min-height: 100vh;
+}
+
+/* Main title */
+h1 {
+    font-size: 36px;
+    margin-top: 0;
+}
+
+/* Section titles */
+h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* Paragraphs */
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Space between sections */
+section {
+    margin-top: 70px;
+}
+
+/* Prevent charts from overflowing */
+.vega-embed {
+    max-width: 100%;
+}
+
+@media (max-width: 700px) {
+    main {
+        padding: 25px 20px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+}
+
+/* Chart + finding side by side */
+.chart-row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 25px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Left chart */
+.chart-container {
+    min-width: 0;
+    width: 100%;
+}
+
+/* Right finding */
+.finding-container {
+    background-color: #f4f7fa;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.finding-container h3 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.finding-container h4 {
+    margin-top: 22px;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.finding-container p {
+    line-height: 1.6;
+}
+
+.chart-note {
+    font-size: 13px;
+    color: #555;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* On narrower screens, stack the chart and finding */
+@media (max-width: 750px) {
+    .chart-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 440,
+  "height": 320,
+  "title": {
+    "text": "Digital Inclusion by Age Group (2025)",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "data/digital_exclusion_age_2025.csv"
+  },
+  "mark": {
+    "type": "rect",
+    "stroke": "#FFFFFF",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "category",
+      "type": "ordinal",
+      "title": "Digital Inclusion Category",
+      "sort": [
+        "Highly excluded",
+        "Excluded",
+        "Included",
+        "Highly included"
+      ],
+      "axis": {
+        "labelAngle": -25,
+        "labelFontSize": 11,
+        "titleFontSize": 12
+      }
+    },
+    "y": {
+      "field": "age",
+      "type": "ordinal",
+      "title": "Age Group",
+      "sort": [
+        "18-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65-74",
+        "75+"
+      ],
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 12
+      }
+    },
+    "color": {
+      "field": "percentage",
+      "type": "quantitative",
+      "title": "Share of age group (%)",
+      "scale": {
+        "domain": [0, 65],
+        "scheme": "blues"
+      },
+      "legend": {
+        "orient": "bottom",
+        "gradientLength": 220
+      }
+    },
+    "tooltip": [
+      {
+        "field": "age",
+        "type": "nominal",
+        "title": "Age Group"
+      },
+      {
+        "field": "category",
+        "type": "nominal",
+        "title": "Digital Inclusion"
+      },
+      {
+        "field": "percentage",
+        "type": "quantitative",
+        "title": "Percentage",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}
