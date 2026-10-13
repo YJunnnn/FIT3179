@@ -1,0 +1,292 @@
+<html>
+    <head>
+        <title>Internet Usage in Australia</title>
+
+        <link rel="stylesheet" href="style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/vega@6.2.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.3"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@7.1.0"></script>
+    </head>
+
+    <body>
+        <main>
+            <h1>Connected Australia</h1>
+
+            <p>
+                Exploring internet usage and the digital divide across Australia.
+            </p>
+
+            <section>
+                <h2>01 - How was Australia changed?</h2>
+                <p>Exploring internet usage over time.</p>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div id="chart1"></div>
+                    </div>
+            
+                    <div class="finding-container">
+                        <h3>Key finding:</h3>
+
+                        <p>
+                            Reported internet use has remained
+                            close to 99% since 2020.
+                        </p>
+
+                        <p>
+                            The increase between 2019 and 2020
+                            was particularly large.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+            
+            <section>
+                <h2>02 - Where is Australia most connected?</h2>
+
+                <p>
+                    Comparing internet access across Australian
+                    states and territories.
+                </p>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div id="chart2"></div>
+                    </div>
+
+                    <div class="finding-container">
+                        <h3>Key finding:</h3>
+
+                        <p>
+                            The Australian Capital Territory recorded the highest
+                            Internet Access Index (90.6), while the Northern Territory
+                            had the lowest (79.9). This 10.7 point difference highlights
+                            geographic variation in digital access across Australia.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>03 - Where are digital skills strongest?</h2>
+
+                <p>
+                    Comparing digital ability across Australian
+                    states and territories in 2020.
+                </p>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div id="chart3"></div>
+                    </div>
+
+                    <div class="finding-container">
+                        <h3>Key finding:</h3>
+
+                        <p>
+                            The Australian Capital Territory recorded
+                            the highest Digital Ability Index (55.7),
+                            while the Northern Territory had the lowest
+                            (46.5), a difference of 9.2 index points.
+                        </p>
+
+                        <h4>How to read this map:</h4>
+
+                        <p>
+                            Larger and darker circles indicate higher
+                            Digital Ability Index scores. The scores
+                            represent digital ability, not the number
+                            of people.
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section>
+                <h2>04 - Where is the urban–rural digital divide largest?</h2>
+
+                <p>
+                    Comparing Digital Inclusion Index scores between
+                    capital cities and rural areas across six Australian
+                    states in 2020.
+                </p>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div id="chart4"></div>
+                    </div>
+
+                    <div class="finding-container">
+                        <h3>Key finding:</h3>
+
+                        <p>
+                            NSW recorded the largest capital city–rural
+                            digital inclusion gap (8.6 points), while
+                            WA had the smallest (5.4 points).
+                            Rural areas scored lower than capital
+                            cities in all six states.
+                        </p>
+
+                        <h4>How to read this map:</h4>
+
+                        <p>
+                            Larger and darker circles indicate a wider
+                            capital city–rural digital inclusion gap.
+                            Grey areas provide geographic context;
+                            comparable data for ACT and NT is unavailable.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>05 - Which age groups face the greatest digital exclusion?</h2>
+
+                <p>
+                    Exploring digital inclusion levels across
+                    Australian age groups in 2025.
+                </p>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div id="chart5"></div>
+                    </div>
+
+                    <div class="finding-container">
+                        <h3>Key finding:</h3>
+
+                        <p>
+                            Digital exclusion increases with age.
+                            Among Australians aged 75 and over,
+                            41.4% were highly excluded, compared
+                            with just 1.8% of those aged 18–34.
+                        </p>
+
+                        <h4>How to read this heatmap:</h4>
+
+                        <p>
+                            Darker blue cells represent a higher
+                            percentage of people within each age
+                            group belonging to that digital
+                            inclusion category.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h2>06 - How do internet access and digital ability differ by income?</h2>
+
+                <p>
+                    Comparing Internet Access and Digital Ability
+                    Index scores across income quintiles in 2020.
+                </p>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div id="chart6"></div>
+
+                        <p class="chart-note">
+                            <span style="color:#3176A8;">●</span> Internet Access
+                            &nbsp;&nbsp;
+                            <span style="color:#E28C45;">●</span> Digital Ability
+                        </p>
+                    </div>
+
+                    <div class="finding-container">
+                        <h3>Key finding:</h3>
+
+                        <p>
+                            Internet Access scores were higher
+                            than Digital Ability scores across
+                            all five income quintiles.
+                            The difference ranged from 33.3
+                            to 38.5 index points.
+                        </p>
+
+                        <h4>How to read this chart:</h4>
+
+                        <p>
+                            Each pair of dots represents Internet
+                            Access and Digital Ability scores for
+                            one income quintile. Longer connecting
+                            lines indicate a larger difference
+                            between the two indices.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>11 - How do online activities vary across age groups?</h2>
+
+                <p>
+                    Comparing participation in online shopping,
+                    video calling and online studying across
+                    Australian age groups in 2025.
+                </p>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <div id="chart11"></div>
+                    </div>
+
+                    <div class="finding-container">
+                        <h3>Key finding:</h3>
+
+                        <p>
+                            Online shopping remained relatively
+                            common across all age groups.
+                            However, participation in video calling
+                            and online studying was much lower
+                            among older Australians.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+            <script>
+            vegaEmbed("#chart1", "chart/chart1.json", {
+                actions: false
+            }).catch(console.error);
+
+            vegaEmbed("#chart2", "chart/chart2.json", {
+                actions: false,
+                renderer: "canvas"
+            }).catch(console.error);
+
+            vegaEmbed("#chart3", "chart/chart3.json", {
+                actions: false,
+                renderer: "canvas"
+            }).catch(console.error);
+
+            vegaEmbed("#chart4", "chart/chart4.json", {
+                actions: false,
+                renderer: "canvas"
+            }).catch(console.error);
+
+            vegaEmbed("#chart5", "chart/chart5.json", {
+                actions: false,
+                renderer: "canvas"
+            }).catch(console.error);
+
+            vegaEmbed("#chart6", "chart/chart6.json", {
+                actions: false,
+                renderer: "canvas"
+            }).catch(console.error);
+
+            vegaEmbed("#chart11", "chart/chart11.json", {
+                actions: false,
+                renderer: "canvas"
+            }).catch(console.error);
+            </script>
+
+            
+
+        </main>
+    </body>
+</html>
