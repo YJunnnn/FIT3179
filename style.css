@@ -1,7 +1,6 @@
 /*grey backrgound*/
 body {
     margin: 0;
-    padding: 0;
     background-color: #d3d3d3;
     font-family: Arial, sans-serif;
     color: #222;
@@ -63,7 +62,7 @@ section {
 /* Chart + finding side by side */
 .chart-row {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-columns: 1.5fr 1fr;
     gap: 25px;
     align-items: center;
     margin-top: 30px;
@@ -77,9 +76,10 @@ section {
 
 /* Right finding */
 .finding-container {
-    background-color: #f4f7fa;
+    background-color: #F3F6FA;
     padding: 25px;
     border-radius: 12px;
+    width: 95%
 }
 
 .finding-container h3 {
@@ -97,20 +97,9 @@ section {
     line-height: 1.6;
 }
 
-.chart-note {
-    font-size: 13px;
-    color: #555;
-    text-align: center;
-    margin-top: 5px;
-}
-
 /* On narrower screens, stack the chart and finding */
 @media (max-width: 750px) {
     .chart-row {
         grid-template-columns: 1fr;
     }
 }
-
-
-
-
