@@ -1,66 +1,114 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "title": "Internet Use in Australia (2017 - 2025)",
+  "title": {
+    "text": "Internet Use in Australia (2017–2025)",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 18
+  },
 
-  "width": 450,
-  "height": 300,
-  
+  "width": 520,
+  "height": 320,
+
   "data": {
     "url": "data/internet_usage_trend.csv",
     "format": {"type": "csv"}
   },
-
-  "mark": {
-    "type": "line",
-    "point": {
-      "filled": true,
-      "size": 65
-    },
-    "strokeWidth":3,
-    "color": "#3176A8"
-  },
-
+  
   "encoding": {
     "x": {
       "field": "year",
       "type": "ordinal",
       "title": "Year",
-      "axis":{
+      "axis": {
         "labelAngle": 0,
-        "labelOverlap": true,
-        "labelFontSize": 11,
+        "labelOverlap": false,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
         "labelPadding": 8
       }
     },
-
     "y": {
       "field": "usage",
       "type": "quantitative",
       "title": "Internet users (%)",
-      "scale":{
-        "domain": [85,100],
-        "zero": false
+      "scale": {
+        "domain": [0, 100]
+      },
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "labelPadding": 8,
+        "grid": true,
+        "gridColor": "#E5E5E5"
+      }
+    }
+  },
+  
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 100
+        },
+        "strokeWidth": 3,
+        "color": "#3176A8"
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "year", "title": "Year"},
+          {
+            "field": "usage",
+            "type": "quantitative",
+            "title": "Internet use (%)",
+            "format": ".1f"
+          }
+        ]
       }
     },
 
-    "tooltip":[
-      {
-        "field": "year",
-        "title": "Year"
+    {
+      "transform": [
+        {"filter": "datum.year == 2020"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dx": 12,
+        "dy": -14,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#000000"
       },
-      {
-        "field": "usage",
-        "title": "Internet use"
+      "encoding": {
+        "text": {"value": "Sharp rise in 2020"}
       }
-    ]
-  },
+    },
 
-  "config":{
-    "view":{"stroke": null},
-    "axis":{
-      "gridColor": "#E5E5E5",
-      "labelFontSize": 12,
-      "titleFontSize": 13
+    {
+      "transform": [
+        {"filter": "datum.year == 2025"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "top",
+        "dx": -8,
+        "dy": 15,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#000000"
+      },
+      "encoding": {
+        "text": {"value": "Near 100% in 2025"}
+      }
     }
+  ],
+
+  "config": {
+    "view": {"stroke": null}
   }
 }

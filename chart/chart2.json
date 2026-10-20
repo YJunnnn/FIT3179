@@ -1,12 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "width": 500,
-  "height": 370,
   "title": {
-    "text": "Internet Access Across Australia (2020)",
+    "text": "Internet Access Index Across Australia (2025)",
     "fontSize": 16,
-    "anchor": "middle"
+    "anchor": "middle",
+    "offset": 18
   },
+  "width": 520,
+  "height": 380,
+
   "data": {
     "url": "data/australia_states.json",
     "format": {
@@ -26,7 +28,7 @@
       "lookup": "state_code",
       "from": {
         "data": {
-          "url": "data/internet_access_states_2020.csv"
+          "url": "data/internet_access_states_2025.csv"
         },
         "key": "state",
         "fields": ["access"]
@@ -37,45 +39,126 @@
       "as": "state_name"
     }
   ],
+
   "projection": {
     "type": "mercator"
   },
-  "mark": {
-    "type": "geoshape",
-    "stroke": "#ffffff",
-    "strokeWidth": 1
-  },
-  "encoding": {
-    "color": {
-      "field": "access",
-      "type": "quantitative",
-      "title": "Internet Access Index",
-      "scale": {
-        "domain": [75, 95],
-        "scheme": "blues"
+
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 1
       },
-      "legend": {
-        "orient": "bottom",
-        "gradientLength": 220
+      "encoding": {
+        "color": {
+          "field": "access",
+          "type": "quantitative",
+          "title": "Internet Access Index",
+          "scale": {
+            "type": "threshold",
+            "domain": [73, 76, 79],
+            "range": [
+              "#B4D7EB",
+              "#6BAED6",
+              "#2171B5",
+              "#084081"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "titleFontSize": 13,
+            "labelFontSize": 12
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state_name",
+            "type": "nominal",
+            "title": "State / Territory"
+          },
+          {
+            "field": "access",
+            "type": "quantitative",
+            "title": "Access Index",
+            "format": ".1f"
+          }
+        ]
       }
     },
-    "tooltip": [
-      {
-        "field": "state_name",
-        "type": "nominal",
-        "title": "State / Territory"
+    {
+      "data": {
+        "values": [
+          {
+            "longitude": 150,
+            "latitude": -35.5,
+            "longitude2": 152,
+            "latitude2": -35.5
+          }
+        ]
       },
-      {
-        "field": "access",
-        "type": "quantitative",
-        "title": "Access Index",
-        "format": ".1f"
+      "mark": {
+        "type": "rule",
+        "color": "#000000",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "longitude2"
+        },
+        "latitude2": {
+          "field": "latitude2"
+        }
       }
-    ]
-  },
-  "config": {
-    "view": {
-      "stroke": null
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "longitude": 149.5,
+            "latitude": -35.5,
+            "label": "ACT: 80.9 (highest)"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 30,
+        "dy": 0,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#000000"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
     }
+  ],
+
+  "config": {
+    "view": {"stroke": null}
   }
 }

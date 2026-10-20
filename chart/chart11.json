@@ -1,12 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "width": 450,
-  "height": 300,
   "title": {
     "text": "Online Activities Across Age Groups (2025)",
     "fontSize": 16,
     "anchor": "middle"
   },
+  "width": 520,
+  "height": 300,
+
   "data": {
     "url": "data/online_activities_age_2025.csv"
   },
@@ -28,8 +29,10 @@
         "75+"
       ],
       "axis": {
-        "labelAngle": -25,
-        "labelFontSize": 11
+        "labelAngle": 0,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "labelPadding": 8
       }
     },
     "xOffset": {
@@ -46,6 +49,11 @@
       "title": "Percentage of respondents (%)",
       "scale": {
         "domain": [0, 100]
+      },
+      "axis":{
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "labelPadding": 8
       }
     },
     "color": {

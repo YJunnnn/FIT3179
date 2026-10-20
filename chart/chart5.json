@@ -1,12 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "width": 440,
-  "height": 320,
   "title": {
     "text": "Digital Inclusion by Age Group (2025)",
     "fontSize": 16,
-    "anchor": "middle"
+    "anchor": "middle",
+    "offset": 18
   },
+  "width": 520,
+  "height": 320,
+
   "data": {
     "url": "data/digital_exclusion_age_2025.csv"
   },
@@ -27,9 +29,10 @@
         "Highly included"
       ],
       "axis": {
-        "labelAngle": -25,
-        "labelFontSize": 11,
-        "titleFontSize": 12
+        "labelAngle": 0,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "labelPadding": 8
       }
     },
     "y": {
@@ -46,7 +49,8 @@
       ],
       "axis": {
         "labelFontSize": 12,
-        "titleFontSize": 12
+        "titleFontSize": 13,
+        "labelPadding": 8
       }
     },
     "color": {
