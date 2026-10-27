@@ -1,98 +1,117 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Comparison of devices used to access the internet in Australia in 2017 and 2025.",
   "title": {
-    "text": "Online Activities Across Age Groups (2025)",
+    "text": "Devices Used to Access the Internet (2017 vs 2025)",
     "fontSize": 16,
-    "anchor": "middle"
+    "anchor": "middle",
+    "offset": 18
   },
   "width": 520,
-  "height": 300,
-
+  "height": 380,
   "data": {
-    "url": "data/online_activities_age_2025.csv"
+    "url": "data/chart11_devices.csv"
   },
-  "mark": {
-    "type": "bar"
-  },
+  "layer": [
+    {
+        "mark": {
+        "type": "bar"
+        }
+    },
+    {
+  "transform": [
+    {
+      "filter": "datum.device === 'Smart TV' && datum.year == 2025"
+    }
+    ],
+    "mark": {
+        "type": "text",
+        "dy": -12,
+        "fontSize": 11,
+        "fontWeight": "bold"
+    },
+    "encoding": {
+        "text": {
+        "value": "+33.1 points"
+        },
+        "color": {
+        "value": "#000000"
+        }
+    }
+    }
+  ],
   "encoding": {
     "x": {
-      "field": "age",
+      "field": "device",
       "type": "nominal",
-      "title": "Age Group",
+      "title": "Device Type",
       "sort": [
-        "18-24",
-        "25-34",
-        "35-44",
-        "45-54",
-        "55-64",
-        "65-74",
-        "75+"
+        "Mobile phone",
+        "Laptop computer",
+        "Smart TV",
+        "Tablet",
+        "Desktop computer"
       ],
       "axis": {
-        "labelAngle": 0,
-        "labelFontSize": 12,
+        "labelFontSize": 11,
         "titleFontSize": 13,
-        "labelPadding": 8
+        "labelPadding": 10,
+        "labelAngle": 0,
+        "labelLimit": 110,
+        "grid": false
       }
     },
     "xOffset": {
-      "field": "activity",
-      "sort": [
-        "Online shopping",
-        "Video calling",
-        "Online studying"
-      ]
+      "field": "year",
+      "type": "nominal",
+      "sort": ["2017", "2025"]
     },
     "y": {
       "field": "percentage",
       "type": "quantitative",
-      "title": "Percentage of respondents (%)",
+      "title": "Percentage of Respondents (%)",
       "scale": {
         "domain": [0, 100]
       },
-      "axis":{
+      "axis": {
         "labelFontSize": 12,
         "titleFontSize": 13,
-        "labelPadding": 8
+        "labelPadding": 8,
+        "grid": true,
+        "gridColor": "#E0E0E0"
       }
     },
     "color": {
-      "field": "activity",
+      "field": "year",
       "type": "nominal",
-      "title": "Online Activity",
+      "title": "Year",
+      "sort": ["2017", "2025"],
       "scale": {
-        "domain": [
-          "Online shopping",
-          "Video calling",
-          "Online studying"
-        ],
-        "range": [
-          "#3176A8",
-          "#E28C45",
-          "#78A68A"
-        ]
+        "domain": ["2017", "2025"],
+        "range": ["#A6C8E0", "#3478AC"]
       },
       "legend": {
         "orient": "bottom",
         "direction": "horizontal",
+        "labelFontSize": 12,
         "title": null
       }
     },
     "tooltip": [
       {
-        "field": "age",
+        "field": "device",
         "type": "nominal",
-        "title": "Age Group"
+        "title": "Device"
       },
       {
-        "field": "activity",
+        "field": "year",
         "type": "nominal",
-        "title": "Activity"
+        "title": "Year"
       },
       {
         "field": "percentage",
         "type": "quantitative",
-        "title": "Percentage",
+        "title": "Respondents (%)",
         "format": ".1f"
       }
     ]

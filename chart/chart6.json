@@ -1,171 +1,117 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": "Internet Access vs Digital Ability by Income (2020)",
-    "fontSize": 16,
-    "anchor": "middle",
-    "offset": 18
+    "text": "Distribution of Digital Inclusion Levels in Australia (2025)",
+    "fontSize": 18,
+    "anchor": "middle"
   },
   "width": 520,
   "height": 300,
-
   "data": {
-    "url": "data/income_access_ability_2020.csv"
+    "url": "data/digital_inclusion_national_2025.csv"
   },
   "transform": [
     {
-      "calculate": "datum.access - datum.ability",
-      "as": "gap"
-    }
-  ],
-  "encoding": {
-    "y": {
-      "field": "income",
-      "type": "ordinal",
-      "title": "Income Quintile",
-      "sort": ["Q1", "Q2", "Q3", "Q4", "Q5"],
-      "axis": {
-        "labelFontSize": 12,
-        "titleFontSize": 13
-      }
-    },
-    "x": {
-      "type": "quantitative",
-      "scale": {
-        "domain": [0, 100]
-      },
-      "axis": {
-        "title": "Index Score (0–100)",
-        "titleFontSize": 12
-      }
-    }
-  },
-  "layer": [
-    {
-      "mark": {
-        "type": "rule",
-        "stroke": "#A8B4BF",
-        "strokeWidth": 3
-      },
-      "encoding": {
-        "x": {
-          "field": "ability",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "access"
-        }
-      }
+      "calculate": "datum.category === 'Highly excluded' ? 0 : datum.category === 'Excluded' ? 1 : 2",
+      "as": "category_order"
     },
     {
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 130,
-        "color": "#E28C45"
-      },
-      "encoding": {
-        "x": {
-          "field": "ability",
-          "type": "quantitative"
-        },
-        "tooltip": [
-          {
-            "field": "income",
-            "title": "Income Quintile"
-          },
-          {
-            "field": "ability",
-            "title": "Digital Ability Index",
-            "format": ".1f"
-          },
-          {
-            "field": "access",
-            "title": "Internet Access Index",
-            "format": ".1f"
-          },
-          {
-            "field": "gap",
-            "title": "Difference (index points)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 130,
-        "color": "#3176A8"
-      },
-      "encoding": {
-        "x": {
-          "field": "access",
-          "type": "quantitative"
-        },
-        "tooltip": [
-          {
-            "field": "income",
-            "title": "Income Quintile"
-          },
-          {
-            "field": "ability",
-            "title": "Digital Ability Index",
-            "format": ".1f"
-          },
-          {
-            "field": "access",
-            "title": "Internet Access Index",
-            "format": ".1f"
-          },
-          {
-            "field": "gap",
-            "title": "Difference (index points)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "opacity": 0
-      },
-      "transform": [
+      "window": [
         {
-          "fold": ["access", "ability"],
-          "as": ["measure", "value"]
-        },
-        {
-          "calculate": "datum.measure === 'access' ? 'Internet Access' : 'Digital Ability'",
-          "as": "activity"
+          "op": "sum",
+          "field": "percentage",
+          "as": "cumulative"
         }
       ],
-      "encoding": {
-        "x": {
-          "field": "value",
-          "type": "quantitative"
-        },
-        "color": {
-          "field": "activity",
-          "type": "nominal",
-          "scale": {
-            "domain": ["Internet Access", "Digital Ability"],
-            "range": ["#3176A8", "#E28C45"]
-          },
-          "legend": {
-            "orient": "bottom",
-            "direction": "horizontal",
-            "title": null,
-            "symbolType": "circle",
-            "symbolFillColor": null
-          }
+      "sort": [
+        {
+          "field": "category_order",
+          "order": "ascending"
         }
-      }
+      ]
+    },
+    {
+      "calculate": "datum.cumulative - datum.percentage",
+      "as": "start"
+    },
+    {
+      "calculate": "round(datum.cumulative)",
+      "as": "end"
+    },
+    {
+      "calculate": "round(datum.start)",
+      "as": "begin"
+    },
+    {
+      "calculate": "sequence(datum.begin, datum.end)",
+      "as": "squares"
+    },
+    {
+      "flatten": ["squares"]
+    },
+    {
+      "calculate": "datum.squares % 10",
+      "as": "column"
+    },
+    {
+      "calculate": "floor(datum.squares / 10)",
+      "as": "row"
     }
   ],
+  "mark": {
+    "type": "rect",
+    "stroke": "white",
+    "strokeWidth": 3,
+    "cornerRadius": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "column",
+      "type": "ordinal",
+      "axis": null
+    },
+    "y": {
+      "field": "row",
+      "type": "ordinal",
+      "sort": "ascending",
+      "axis": null
+    },
+    "color": {
+      "field": "category",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Highly excluded",
+          "Excluded",
+          "Included or highly included"
+        ],
+        "range": [
+          "#C45140",
+          "#E5A15D",
+          "#367FB4"
+        ]
+      },
+      "legend": {
+        "title": "Digital Inclusion Category",
+        "labelFontSize": 13,
+        "titleFontSize": 14,
+        "orient": "bottom"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "category",
+        "type": "nominal",
+        "title": "Category"
+      },
+      {
+        "field": "percentage",
+        "type": "quantitative",
+        "title": "Share (%)",
+        "format": ".1f"
+      }
+    ]
+  },
   "config": {
     "view": {
       "stroke": null

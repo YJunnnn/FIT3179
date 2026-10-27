@@ -1,0 +1,204 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": "Digital Inclusion Across Demographic Groups (2020)",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 18
+  },
+  "width": 520,
+  "height": 500,
+  "data": {
+    "url": "data/chart8_parallel.csv"
+  },
+  "params": [
+    {
+      "name": "selectedCategory",
+      "value": "Income",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Income",
+          "Employment",
+          "Education"
+        ],
+        "name": "Select demographic category: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.category === selectedCategory"
+    },
+    {
+      "fold": [
+        "access",
+        "affordability",
+        "ability"
+      ],
+      "as": [
+        "measure",
+        "score"
+      ]
+    },
+    {
+      "calculate": "datum.measure === 'access' ? 'Internet Access' : datum.measure === 'affordability' ? 'Affordability' : 'Digital Ability'",
+      "as": "dimension"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "dimension",
+      "type": "ordinal",
+      "title": null,
+      "sort": [
+        "Internet Access",
+        "Affordability",
+        "Digital Ability"
+      ],
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "labelPadding": 12,
+        "labelAngle": 0,
+        "grid": false
+      }
+    },
+    "y": {
+      "field": "score",
+      "type": "quantitative",
+      "title": "Index Score (0–100)",
+      "scale": {
+        "domain": [0, 100]
+      },
+      "axis": {
+        "labelFontSize": 11,
+        "titleFontSize": 13,
+        "labelPadding": 6,
+        "grid": true,
+        "gridColor": "#E0E0E0"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 75
+        },
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "color": {
+          "field": "group",
+          "type": "nominal",
+          "title": "Demographic Group",
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "title": null,
+            "labelFontSize": 11,
+            "symbolStrokeWidth": 3,
+            "columns": 5,
+            "columnPadding": 50,
+            "labelLimit": 120
+          }
+        },
+        "detail": {
+          "field": "group"
+        },
+        "tooltip": [
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Demographic Group"
+          },
+          {
+            "field": "dimension",
+            "type": "nominal",
+            "title": "Dimension"
+          },
+          {
+            "field": "score",
+            "type": "quantitative",
+            "title": "Index Score",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "selectedCategory === 'Income' && datum.group === 'Q5' && datum.dimension === 'Affordability'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "dx": 70,
+        "dy": 10,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#333333"
+      },
+      "encoding": {
+        "text": {
+          "value": "Lowest affordability: 32.7"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "selectedCategory === 'Employment' && datum.group === 'Employed' && datum.dimension === 'Internet Access'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "dx": 0,
+        "dy": -12,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#333333"
+      },
+      "encoding": {
+        "text": {
+          "value": "Highest internet access: 81.3"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "selectedCategory === 'Education' && datum.group === 'Tertiary' && datum.dimension === 'Digital Ability'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "dx": 70,
+        "dy": -20,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#333333"
+      },
+      "encoding": {
+        "text": {
+          "value": "Highest digital ability: 57.9"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

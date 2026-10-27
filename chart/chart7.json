@@ -1,0 +1,204 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": "Internet Access vs Digital Ability by Income (2020)",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 18
+  },
+  "width": 520,
+  "height": 420,
+
+  "data": {
+    "url": "data/income_access_ability_2020.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.access - datum.ability",
+      "as": "gap"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "income",
+      "type": "ordinal",
+      "title": "Income Quintile",
+      "sort": ["Q1", "Q2", "Q3", "Q4", "Q5"],
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      }
+    },
+    "x": {
+      "type": "quantitative",
+      "scale": {
+        "domain": [0, 100]
+      },
+      "axis": {
+        "title": "Index Score (0–100)",
+        "titleFontSize": 12
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "#A8B4BF",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "ability",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "access"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 130,
+        "color": "#E28C45"
+      },
+      "encoding": {
+        "x": {
+          "field": "ability",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "income",
+            "title": "Income Quintile"
+          },
+          {
+            "field": "ability",
+            "title": "Digital Ability Index",
+            "format": ".1f"
+          },
+          {
+            "field": "access",
+            "title": "Internet Access Index",
+            "format": ".1f"
+          },
+          {
+            "field": "gap",
+            "title": "Difference (index points)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 130,
+        "color": "#3176A8"
+      },
+      "encoding": {
+        "x": {
+          "field": "access",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "income",
+            "title": "Income Quintile"
+          },
+          {
+            "field": "ability",
+            "title": "Digital Ability Index",
+            "format": ".1f"
+          },
+          {
+            "field": "access",
+            "title": "Internet Access Index",
+            "format": ".1f"
+          },
+          {
+            "field": "gap",
+            "title": "Difference (index points)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "opacity": 0
+      },
+      "transform": [
+        {
+          "fold": ["access", "ability"],
+          "as": ["measure", "value"]
+        },
+        {
+          "calculate": "datum.measure === 'access' ? 'Internet Access' : 'Digital Ability'",
+          "as": "activity"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "value",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "activity",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Internet Access", "Digital Ability"],
+            "range": ["#3176A8", "#E28C45"]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "title": null,
+            "symbolType": "circle",
+            "symbolFillColor": null
+          }
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.income === 'Q5'"
+        },
+        {
+          "calculate": "'37.2 point gap'",
+          "as": "annotation"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 50,
+        "dy": -18,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#555555"
+      },
+       "encoding": {
+        "x": {
+          "field": "ability",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "annotation"
+        }
+       }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

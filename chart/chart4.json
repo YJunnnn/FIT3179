@@ -1,14 +1,19 @@
+
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "width": 500,
-  "height": 370,
+  "description": "Dot density map of sampled NBN fixed-line coverage areas across Australia in 2024.",
+  "width": 550,
+  "height": 380,
   "title": {
-    "text": "Capital City–Rural Digital Inclusion Gap (2020)",
+    "text": "NBN Fixed-Line Coverage Distribution (2024)",
     "fontSize": 16,
-    "anchor": "middle"
+    "anchor": "middle",
+    "offset": 18
   },
   "projection": {
-    "type": "mercator"
+    "type": "mercator",
+    "center": [134, -28],
+    "scale": 520
   },
   "layer": [
     {
@@ -19,45 +24,48 @@
           "feature": "STE_2021_AUST_GDA2020"
         }
       },
-      "transform": [
-        {
-          "filter": "datum.properties.STE_NAME21 !== 'Outside Australia'"
-        }
-      ],
       "mark": {
         "type": "geoshape",
-        "fill": "#E8EEF2",
-        "stroke": "#B9C6D0",
+        "fill": "#F0F0F0",
+        "stroke": "#FFFFFF",
         "strokeWidth": 0.8
       }
     },
     {
       "data": {
-        "url": "data/digital_inclusion_gap_2020.csv"
+        "url": "data/chart4_dots.csv"
       },
-      "transform": [
-        {
-          "lookup": "state",
-          "from": {
-            "data": {
-              "values": [
-                {"state": "NSW", "longitude": 147.0, "latitude": -32.5},
-                {"state": "VIC", "longitude": 144.5, "latitude": -37.0},
-                {"state": "QLD", "longitude": 145.0, "latitude": -22.5},
-                {"state": "SA", "longitude": 135.5, "latitude": -30.0},
-                {"state": "WA", "longitude": 121.0, "latitude": -26.0},
-                {"state": "TAS", "longitude": 146.5, "latitude": -42.0}
-              ]
-            },
-            "key": "state",
-            "fields": ["longitude", "latitude"]
-          }
-        }
-      ],
       "mark": {
         "type": "circle",
-        "opacity": 0.9,
-        "stroke": "#FFFFFF",
+        "size": 18,
+        "color": "#3977A9",
+        "opacity": 0.7
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "longitude": 148,
+            "latitude": -34,
+            "longitude2": 143,
+            "latitude2": -29
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#333333",
         "strokeWidth": 1
       },
       "encoding": {
@@ -69,57 +77,46 @@
           "field": "latitude",
           "type": "quantitative"
         },
-        "size": {
-          "field": "gap",
-          "type": "quantitative",
-          "title": "Urban–rural gap (points)",
-          "scale": {
-            "domain": [0, 10],
-            "range": [0, 1800]
-          },
-          "legend": {
-            "orient": "bottom",
-            "values": [2, 4, 6, 8, 10]
-          }
+        "longitude2": {
+          "field": "longitude2"
         },
-        "color": {
-          "field": "gap",
-          "type": "quantitative",
-          "title": "Urban–rural gap (points)",
-          "scale": {
-            "domain": [5, 9],
-            "range": ["#BBD7EB", "#175A91"]
-          },
-          "legend": {
-            "orient": "bottom",
-            "gradientLength": 200
-          }
-        },
-        "tooltip": [
+        "latitude2": {
+          "field": "latitude2"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
           {
-            "field": "state",
-            "type": "nominal",
-            "title": "State"
-          },
-          {
-            "field": "capital",
-            "type": "quantitative",
-            "title": "Capital City Index",
-            "format": ".1f"
-          },
-          {
-            "field": "rural",
-            "type": "quantitative",
-            "title": "Rural Index",
-            "format": ".1f"
-          },
-          {
-            "field": "gap",
-            "type": "quantitative",
-            "title": "Gap (points)",
-            "format": ".1f"
+            "longitude": 143,
+            "latitude": -29,
+            "label": "Higher fixed-line coverage concentration"
           }
         ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#000000",
+        "align": "right",
+        "dx": -5,
+        "dy": -8
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
       }
     }
   ],

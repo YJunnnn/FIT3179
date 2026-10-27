@@ -1,0 +1,322 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "title": {
+    "text": "Online Activity Profiles Across Generations (2025)",
+    "fontSize": 16,
+    "anchor": "middle",
+    "offset": 18
+  },
+  "width": 520,
+  "height": 480,
+
+  "signals": [
+    {
+      "name": "cx",
+      "update": "width / 2"
+    },
+    {
+      "name": "cy",
+      "update": "height / 2"
+    },
+    {
+      "name": "radius",
+      "update": "min(width, height) * 0.36"
+    }
+  ],
+  "data": [
+    {
+      "name": "table",
+      "url": "data/chart10_radar.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "percentage": "number"
+        }
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "as": "order",
+          "expr": "datum.activity === 'News and information' ? 0 : datum.activity === 'Online shopping' ? 1 : datum.activity === 'Video calling' ? 2 : datum.activity === 'Telehealth' ? 3 : datum.activity === 'Working from home' ? 4 : 5"
+        },
+        {
+          "type": "formula",
+          "as": "angle",
+          "expr": "datum.order * PI / 3 - PI / 2"
+        },
+        {
+          "type": "formula",
+          "as": "x",
+          "expr": "cx + radius * datum.percentage / 100 * cos(datum.angle)"
+        },
+        {
+          "type": "formula",
+          "as": "y",
+          "expr": "cy + radius * datum.percentage / 100 * sin(datum.angle)"
+        }
+      ]
+    },
+    {
+      "name": "axes",
+      "values": [
+        {"activity": "News and information", "order": 0},
+        {"activity": "Online shopping", "order": 1},
+        {"activity": "Video calling", "order": 2},
+        {"activity": "Telehealth", "order": 3},
+        {"activity": "Working from home", "order": 4},
+        {"activity": "Online studying", "order": 5}
+      ],
+      "transform": [
+        {
+          "type": "formula",
+          "as": "angle",
+          "expr": "datum.order * PI / 3 - PI / 2"
+        },
+        {
+          "type": "formula",
+          "as": "x",
+          "expr": "cx + radius * cos(datum.angle)"
+        },
+        {
+          "type": "formula",
+          "as": "y",
+          "expr": "cy + radius * sin(datum.angle)"
+        },
+        {
+          "type": "formula",
+          "as": "labelX",
+          "expr": "cx + (radius + 22) * cos(datum.angle)"
+        },
+        {
+          "type": "formula",
+          "as": "labelY",
+          "expr": "cy + (radius + 22) * sin(datum.angle)"
+        }
+      ]
+    },
+    {
+      "name": "rings",
+      "values": [
+        {"value": 20},
+        {"value": 40},
+        {"value": 60},
+        {"value": 80},
+        {"value": 100}
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["18-24", "45-54", "75+"],
+      "range": ["#4C78A8", "#F58518", "#54A24B"]
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "data": "rings"
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {
+            "data": "axes"
+          },
+          "sort": {
+            "field": "order"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "signal": "cx + radius * parent.value / 100 * cos(datum.angle)"
+              },
+              "y": {
+                "signal": "cy + radius * parent.value / 100 * sin(datum.angle)"
+              },
+              "stroke": {
+                "value": "#E0E0E0"
+              },
+              "strokeWidth": {
+                "value": 1
+              },
+              "interpolate": {
+                "value": "linear-closed"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "rings"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "cx + 10"
+          },
+          "y": {
+            "signal": "cy - radius * datum.value / 100"
+          },
+          "text": {
+            "signal": "datum.value + '%'"
+          },
+          "fontSize": {
+            "value": 10
+          },
+          "fill": {
+            "value": "#777777"
+          },
+          "align": {
+            "value": "left"
+          },
+          "baseline": {
+            "value": "bottom"
+          },
+          "dy": {
+            "value": -3
+          }
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {
+        "data": "axes"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "cx"
+          },
+          "y": {
+            "signal": "cy"
+          },
+          "x2": {
+            "field": "x"
+          },
+          "y2": {
+            "field": "y"
+          },
+          "stroke": {
+            "value": "#D0D0D0"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "axes"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "field": "labelX"
+          },
+          "y": {
+            "field": "labelY"
+          },
+          "text": {
+            "field": "activity"
+          },
+          "fontSize": {
+            "value": 11
+          },
+          "align": {
+            "signal": "datum.labelX < cx - 5 ? 'right' : datum.labelX > cx + 5 ? 'left' : 'center'"
+          },
+          "baseline": {
+            "value": "middle"
+          }
+        }
+      }
+    },
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "table",
+          "groupby": "age"
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {
+            "data": "series"
+          },
+          "sort": {
+            "field": "order"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "field": "x"
+              },
+              "y": {
+                "field": "y"
+              },
+              "stroke": {
+                "scale": "color",
+                "field": "age"
+              },
+              "strokeWidth": {
+                "value": 2.5
+              },
+              "interpolate": {
+                "value": "linear-closed"
+              }
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {
+            "data": "series"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "field": "x"
+              },
+              "y": {
+                "field": "y"
+              },
+              "size": {
+                "value": 65
+              },
+              "fill": {
+                "scale": "color",
+                "field": "age"
+              },
+              "tooltip": {
+                "signal": "{'Age Group': datum.age, 'Activity': datum.activity, 'Respondents (%)': datum.percentage}"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "orient": "bottom",
+      "title": null,
+      "direction": "horizontal",
+      "labelFontSize": 12
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

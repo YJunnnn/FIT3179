@@ -109,6 +109,8 @@
   ],
 
   "config": {
-    "view": {"stroke": null}
+    "view": {
+      "stroke": null
+    }
   }
 }
