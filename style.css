@@ -103,3 +103,32 @@ section {
         grid-template-columns: 1fr;
     }
 }
+
+/* Footer */
+.footer {
+  margin-top: 60px;
+  padding: 25px 40px;
+  background-color: #F3F6FA;
+  border-top: 1px solid #DDE4EB;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.footer h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #1F4E79;
+}
+
+.footer ul {
+  padding-left: 20px;
+}
+
+.footer a {
+  color: #3176A8;
+  text-decoration: underline;
+}
+
+.footer p {
+  margin: 6px 0;
+}
